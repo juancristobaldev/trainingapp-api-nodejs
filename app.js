@@ -20,7 +20,6 @@ app.use(bodyparser.json());
 app.use(cors());
 
 app.use(session({
-
     secret: 'mysecretkey' ,
     resave:true,
     saveUninitialized:true,
@@ -105,7 +104,7 @@ app.post( '/api/users/create-user' , async  (req, res) => {
     })
 })
 
-// LOGIN
+// AUTH
 
 app.post( '/api/auth' , (req, res) => {
 
@@ -121,12 +120,48 @@ app.post( '/api/auth' , (req, res) => {
 
         if(err) throw err;
         if(find.length > 0){
+            req.session.userID = find[0].id
             res.send(JSON.stringify([{key:find[0].id}]));
         }else{
             res.send(JSON.stringify([{error:true, message: 'Usuario y/o contraseña incorrecto'}]));
         }
     })
 
+})
+
+// EXERCISES
+
+// SELECT ALL EXERCISES BY USER ID
+
+app.get( '/api/exercises/:id' , (req,res) => {
+    const query = 'SELECT * FROM exercises WHERE usuario = ?'
+    connection.query(query,[parseInt(req.params.id)],(err,object)=>{
+        if(err) throw err
+        else res.send(object)
+    })
+})
+
+// CREATE EXERCISE
+
+app.post( '/api/exercises/create-exercise' , (req,res) => {
+    const dataForm = {
+        idUser:req.body.id,
+        name:req.body.name,
+        muscle:req.body.muscle,
+        type:req.body.type,
+        series:[]
+    }
+
+    const {idUser,name,muscle,type,series} = dataForm;
+
+    const sqlInsert = 'INSERT INTO exercises (usuario,nameEx,typeEx,muscleEx,seriesEx) VALUES ?'
+    const values = [
+        [idUser,name,type,muscle,JSON.stringify(series)]
+    ]
+    connection.query(sqlInsert,[values],(err,sucess) => {
+        if(err) throw err
+        else console.log(sucess)
+    })
 })
 
 
