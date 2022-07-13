@@ -158,10 +158,35 @@ app.post( '/api/exercises/create-exercise' , (req,res) => {
     const values = [
         [idUser,name,type,muscle,JSON.stringify(series)]
     ]
-    connection.query(sqlInsert,[values],(err,sucess) => {
-        if(err) throw err
-        else console.log(sucess)
+
+    if(name.length > 0){
+        connection.query(sqlInsert,[values],(err,sucess) => {
+            if(err) throw err
+            else res.send(true)
+        })
+    }else{
+        res.send(false)
+    }
+})
+
+// DELETE EXERCISE 
+
+app.post( '/api/exercises/delete-exercise/:id' , async (req,res) => {
+    const dataForm = {
+        idUser:parseInt(req.params.id),
+        items:req.body
+    }
+
+    const {idUser,items} = dataForm;
+
+    await items.forEach(item => {
+        const sqlDelete = `DELETE FROM exercises WHERE nameEx = '${item.nameEx}' AND usuario = '${idUser}'`;
+        connection.query(sqlDelete, (err,done) => {
+            if(err) throw err;
+        })
     })
+
+    res.send(true)
 })
 
 
