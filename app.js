@@ -6,7 +6,9 @@ app = express()
 const cors = require('cors');
 const bodyparser = require('body-parser')
 const mysql = require('mysql');
-const session = require('express-session')
+const session = require('express-session');
+const { stringify } = require('nodemon/lib/utils');
+const { reset } = require('nodemon');
 
 
 //env
@@ -46,22 +48,34 @@ app.get( '/', (req,res) => {
     res.send('Api funcionando')
 })
 
-app.get('/api/users', (req,res) => { // SELECCIONAR TODOS LOS USERS
-    connection.query('SELECT * from users', (err,done) => {
-        if(err) throw err;
-        else res.send(done)
-    });
+//SELECCIONAR TABLA DE DATOS
+
+app.get('/api/select/:table/', async (req,res) => { // SELECCIONAR TABLA
+    connection.query(`SELECT * FROM ${req.params.table}`, (err,result) => {
+        if (err) throw err
+        else res.send(result)
+    })
 });
 
-app.get('/api/users/:id', (req,res) =>{ // SELECCIONAR USER POR ID
-    const query = 'SELECT * FROM users WHERE id = ?'
-    connection.query(query,[parseInt(req.params.id)],(err,object)=>{
+//SELECCIONAR ELEMENTO ATRAVEZ DE USUARIO EN UNA TABLA DE DATOS
+
+app.get('/api/select/:table/user/:userid' , (req,res) => { 
+    connection.query(`SELECT * FROM ${req.params.table} WHERE usuario = ${req.params.userid}`,
+    (err,result) => {
         if(err) throw err
-        else res.send(object)
+        else res.send(result)
     })
+
 })
 
-// CREATE A USER
+//SELECCIONAR ELEMENTO ATRAVEZ DE ID DE ELEMENTO EN UNA TABLA DE DATOS
+
+app.get('/api/select/:table/element/:id', (req,res) =>{ // SELECCIONAR USER POR ID
+    connection.query(`SELECT * FROM ${req.params.table} WHERE id = ${req.params.id}`,(err,result)=>{
+        if(err) throw err
+        else res.send(result)
+    })
+})
 
 app.post( '/api/users/create-user' , async  (req, res) => {
     const userData = {
@@ -75,7 +89,7 @@ app.post( '/api/users/create-user' , async  (req, res) => {
 
     const sqlSelect = 'SELECT * FROM users';
     connection.query( sqlSelect, (err,users) => {
-        const {user,name,email,date,pass,passConfirm } = userData
+        const {user,name,email,date,pass } = userData
 
         const errors = []
 
@@ -84,13 +98,7 @@ app.post( '/api/users/create-user' , async  (req, res) => {
             if(item.email === email) errors.push('Este email ya esta en uso, por favor escribe uno nuevo');
         })
 
-        if(user.length === 0) errors.push('El usuario es obligatorio');
-        if(name.length === 0) errors.push('El nombre es obligatorio');
-        if(email.length === 0) errors.push('El email es obligatorio');
-        if(pass.length === 0) errors.push('Debes escribir una contraseña')
-        if(passConfirm !== pass) errors.push('Las contraseñas deben coincidir'); 
-
-        if(errors.length > 0) res.send(JSON.stringify(errors))
+        if(errors.length > 0) res.send(JSON.stringify({error:true, errors:errors}))
         else{
             const sqlInsert = "INSERT INTO users (user,name,email,date,pass) VALUES ?"
             const values = [
@@ -98,7 +106,7 @@ app.post( '/api/users/create-user' , async  (req, res) => {
             ]
              connection.query(sqlInsert, [values], (err,result) => {
                 if (err) console.log(err)
-                else console.log('Datos agregados') 
+                else res.send({error:false})
             })
         }
     })
@@ -112,7 +120,6 @@ app.post( '/api/auth' , (req, res) => {
         user:req.body.user,
         pass:req.body.pass
     }
-
     const { user,pass } = formData
     const sqlAuth = `SELECT * FROM users WHERE user = ? AND pass = ?`
 
@@ -130,16 +137,6 @@ app.post( '/api/auth' , (req, res) => {
 })
 
 // EXERCISES
-
-// SELECT ALL EXERCISES BY USER ID
-
-app.get( '/api/exercises/:id' , (req,res) => {
-    const query = 'SELECT * FROM exercises WHERE usuario = ?'
-    connection.query(query,[parseInt(req.params.id)],(err,object)=>{
-        if(err) throw err
-        else res.send(object)
-    })
-})
 
 // CREATE EXERCISE
 
@@ -187,6 +184,27 @@ app.post( '/api/exercises/delete-exercise/:id' , async (req,res) => {
     })
 
     res.send(true)
+})
+
+//ROUTINES 
+
+app.post( '/api/routines/create-routine/' , async (req,res) => {
+    const dataForm = {
+        routine:req.body
+    }
+
+    const {done,timeRecord,exercises,nameRoutine,idUser } = dataForm.routine
+    const values = [
+        [idUser,nameRoutine,done,timeRecord,JSON.stringify(exercises)]
+    ]
+    
+    console.log(exercises)
+
+    connection.query('INSERT INTO routines (usuario,name,dones,timeRecord,exercises) VALUES ?',[values], (err,done) => {
+        if(err) throw err
+        if(done) console.log('good')
+    })
+
 })
 
 
