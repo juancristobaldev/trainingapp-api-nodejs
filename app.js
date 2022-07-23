@@ -59,8 +59,8 @@ app.get('/api/select/:table/', async (req,res) => { // SELECCIONAR TABLA
 
 //SELECCIONAR ELEMENTO ATRAVEZ DE USUARIO EN UNA TABLA DE DATOS
 
-app.get('/api/select/:table/user/:userid' , (req,res) => { 
-    connection.query(`SELECT * FROM ${req.params.table} WHERE usuario = ${req.params.userid}`,
+app.get('/api/select/:table/user/:userid' , async (req,res) => { 
+    await connection.query(`SELECT * FROM ${req.params.table} WHERE usuario = ${req.params.userid}`,
     (err,result) => {
         if(err) throw err
         else res.send(result)
@@ -70,8 +70,8 @@ app.get('/api/select/:table/user/:userid' , (req,res) => {
 
 //SELECCIONAR ELEMENTO ATRAVEZ DE ID DE ELEMENTO EN UNA TABLA DE DATOS
 
-app.get('/api/select/:table/element/:id', (req,res) =>{ // SELECCIONAR USER POR ID
-    connection.query(`SELECT * FROM ${req.params.table} WHERE id = ${req.params.id}`,(err,result)=>{
+app.get('/api/select/:table/element/:id', async (req,res) =>{ // SELECCIONAR USER POR ID
+    await connection.query(`SELECT * FROM ${req.params.table} WHERE id = ${req.params.id}`,(err,result)=>{
         if(err) throw err
         else res.send(result)
     })
@@ -159,7 +159,11 @@ app.post( '/api/exercises/create-exercise' , (req,res) => {
     if(name.length > 0){
         connection.query(sqlInsert,[values],(err,sucess) => {
             if(err) throw err
-            else res.send(true)
+            else {
+                connection.query('SELECT * FROM exercises WHERE usuario = ?',[idUser], (err,result) => {
+                    res.send(result)
+                })
+            }
         })
     }else{
         res.send(false)
