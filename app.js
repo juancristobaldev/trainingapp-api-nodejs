@@ -7,9 +7,6 @@ const cors = require('cors');
 const bodyparser = require('body-parser')
 const mysql = require('mysql');
 const session = require('express-session');
-const { stringify } = require('nodemon/lib/utils');
-const { reset } = require('nodemon');
-
 
 //env
 
