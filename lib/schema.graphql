@@ -1,0 +1,75 @@
+type User {
+  id: Int
+  user: String!
+  first_name: String!
+  last_name: String!
+  email: String
+  date: String!
+  pass: String!
+}
+
+type Query {
+  "Obtener todos los usuarios"
+  getUsers: [User]
+}
+
+type CreateUserOutput {
+  errors: String
+  success: Boolean
+}
+
+type DeleteUserOutput {
+  errors: String
+  success: Boolean
+}
+
+type UpdateUserOutput {
+  errors: String
+  success: Boolean
+}
+
+type SignInUserOutput {
+  errors: String
+  success: Boolean
+  token: String
+  user: String
+}
+
+type Mutation {
+  "Crea un usuario"
+  createUser(input: UserInput!): CreateUserOutput
+
+  "Eliminar un usuario"
+  deleteUser(input: UserDeleteInput!): DeleteUserOutput
+
+  "Actualizar un usuario"
+  updateUser(input: UserUpdateInput!): UpdateUserOutput
+
+  "Iniciar sesion"
+  userSignIn(input: UserSignInInput!): SignInUserOutput
+}
+
+input UserInput {
+  user: String!
+  first_name: String!
+  last_name: String!
+  email: String!
+  date: String
+  pass: String!
+}
+
+input UserDeleteInput {
+  id: Int!
+}
+
+input UserUpdateInput {
+  id: Int
+  user: String
+  email: String
+  pass: String
+}
+
+input UserSignInInput {
+  user: String
+  pass: String
+}
