@@ -13,27 +13,33 @@ app = express()
 const cors = require('cors'),
 bodyparser = require('body-parser'),
 jwt = require('jsonwebtoken'),
-config = require('./configs/configs')
 mysql = require('mysql'),
 session = require('express-session');
 
-app.set('key', config.key)
+const cookieParser = require('cookie-parser')
 
 //env
 
 require('dotenv').config({path:'./.env'})
 
 //middlewares
+app.use(cookieParser())
 
 app.use(bodyparser.urlencoded({extended: false}));
 app.use(bodyparser.json());
 app.use(cors());
 
 app.use(session({
-    secret: 'mysecretkey' ,
+    secret: 'mysecretkey',
     resave:true,
     saveUninitialized:true,
-
+    cookie: 
+    { 
+        path: '/',
+        httpOnly: true,
+        secure: false,
+        maxAge: 7200000,
+    }
 }));
 
 const resolvers = require('./lib/resolvers')
@@ -61,9 +67,16 @@ const port = process.env.PORT;
 
 app.get( '/', (req,res) => {
     res.send('Api funcionando')
+    (req.session.token)
 })
 
+app.get('/cookie' ,(req,res) => {
+    req.session.token = 81
+    res.send('done')
+})
+
+
 app.listen(port,() => {
-    console.log('Corriendo puerto en puerto ' + port)
+    ('Corriendo puerto en puerto ' + port)
 })
 

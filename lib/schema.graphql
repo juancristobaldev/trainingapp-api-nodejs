@@ -6,11 +6,39 @@ type User {
   email: String
   date: String!
   pass: String!
+  token: String
+}
+
+type Routine {
+  id: Int
+  token: String!
+  name: String!
+  dones: Int
+  timeRecord: String
+  exercises: String
+}
+
+type Exercise {
+  id: Int
+  token: String!
+  nameEx: String!
+  typeEx: String!
+  muscleEx: String!
+  seriesEx: String!
 }
 
 type Query {
   "Obtener todos los usuarios"
   getUsers: [User]
+
+  "Obtener usuario atraves de token"
+  getUser(token: String!): User
+
+  "Obtener rutinas por token de usuario"
+  getRoutinesByToken(token: String!): [Routine]
+
+  "Obtener ejercicios por token de usuario"
+  getExercisesByToken(token: String!): [Exercise]
 }
 
 type CreateUserOutput {
@@ -35,6 +63,36 @@ type SignInUserOutput {
   user: String
 }
 
+type CreateRoutineOutput {
+  errors: String
+  success: Boolean
+}
+
+type DeleteRoutineOutput {
+  errors: String
+  success: Boolean
+}
+
+type UpdateRoutineOutput {
+  errors: String
+  success: Boolean
+}
+
+type CreateExerciseOutput {
+  errors: String
+  success: Boolean
+}
+
+type DeleteExerciseOutput {
+  errors: String
+  success: Boolean
+}
+
+type UpdateExerciseOutput {
+  errors: String
+  success: Boolean
+}
+
 type Mutation {
   "Crea un usuario"
   createUser(input: UserInput!): CreateUserOutput
@@ -47,6 +105,24 @@ type Mutation {
 
   "Iniciar sesion"
   userSignIn(input: UserSignInInput!): SignInUserOutput
+
+  "Crear una rutina"
+  createRoutine(input: CreateRoutineInput!): CreateRoutineOutput
+
+  "Eliminar una rutina"
+  deleteRoutine(input: DeleteRoutineInput!): DeleteRoutineOutput
+
+  "Actualizar una rutina"
+  updateRoutine(input: UpdateRoutineInput!): UpdateRoutineOutput
+
+  "Crear un ejercicio"
+  createExercise(input: CreateExerciseInput!): CreateExerciseOutput
+
+  "Eliminar una ejercicio"
+  deleteExercise(input: DeleteExerciseInput!): DeleteExerciseOutput
+
+  "Actualizar una ejercicio"
+  updateExercise(input: UpdateExerciseInput!): UpdateExerciseOutput
 }
 
 input UserInput {
@@ -61,15 +137,53 @@ input UserInput {
 input UserDeleteInput {
   id: Int!
 }
-
 input UserUpdateInput {
   id: Int
   user: String
   email: String
   pass: String
 }
-
 input UserSignInInput {
   user: String
   pass: String
+}
+
+input CreateRoutineInput {
+  token: String!
+  name: String!
+  dones: Int
+  timeRecord: String
+  exercises: String
+}
+
+input DeleteRoutineInput {
+  token: String!
+  name: String
+}
+
+input UpdateRoutineInput {
+  id: Int!
+  name: String
+  dones: Int
+  timeRecord: String
+  exercises: String
+}
+
+input CreateExerciseInput {
+  token: String!
+  nameEx: String!
+  typeEx: String!
+  muscleEx: String!
+  seriesEx: String!
+}
+
+input DeleteExerciseInput {
+  token: String!
+  nameEx: String!
+}
+
+input UpdateExerciseInput {
+  token: String!
+  nameEx: String
+  seriesEx: String
 }
