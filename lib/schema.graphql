@@ -12,7 +12,7 @@ type User {
 type Routine {
   id: Int
   token: String!
-  name: String!
+  nameRoutine: String!
   dones: Int
   timeRecord: String
   exercises: String
@@ -36,6 +36,9 @@ type Query {
 
   "Obtener rutinas por token de usuario"
   getRoutinesByToken(token: String!): [Routine]
+
+  "Obtener rutina por id de rutina"
+  getRoutineById(id: Int!): [Routine]
 
   "Obtener ejercicios por token de usuario"
   getExercisesByToken(token: String!): [Exercise]
@@ -150,7 +153,7 @@ input UserSignInInput {
 
 input CreateRoutineInput {
   token: String!
-  name: String!
+  nameRoutine: String!
   dones: Int
   timeRecord: String
   exercises: String
@@ -158,12 +161,12 @@ input CreateRoutineInput {
 
 input DeleteRoutineInput {
   token: String!
-  name: String
+  id: Int!
 }
 
 input UpdateRoutineInput {
   id: Int!
-  name: String
+  nameRoutine: String
   dones: Int
   timeRecord: String
   exercises: String
