@@ -7,6 +7,7 @@ type User {
   date: String!
   pass: String!
   token: String
+  last_workouts: String
 }
 
 type Routine {
@@ -135,16 +136,18 @@ input UserInput {
   email: String!
   date: String
   pass: String!
+  last_workouts: String
 }
 
 input UserDeleteInput {
-  id: Int!
+  token: String!
 }
 input UserUpdateInput {
-  id: Int
+  id: Int!
   user: String
   email: String
   pass: String
+  last_workouts: String
 }
 input UserSignInInput {
   user: String
