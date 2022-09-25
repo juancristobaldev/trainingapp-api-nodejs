@@ -13,7 +13,7 @@ type User {
 type Routine {
   id: Int
   token: String!
-  nameRoutine: String!
+  name: String!
   dones: Int
   timeRecord: String
   exercises: String
@@ -22,7 +22,7 @@ type Routine {
 type Exercise {
   id: Int
   token: String!
-  nameEx: String!
+  name: String!
   typeEx: String!
   muscleEx: String!
   seriesEx: String!
@@ -156,7 +156,7 @@ input UserSignInInput {
 
 input CreateRoutineInput {
   token: String!
-  nameRoutine: String!
+  name: String!
   dones: Int
   timeRecord: String
   exercises: String
@@ -169,7 +169,7 @@ input DeleteRoutineInput {
 
 input UpdateRoutineInput {
   id: Int!
-  nameRoutine: String
+  name: String
   dones: Int
   timeRecord: String
   exercises: String
@@ -177,7 +177,7 @@ input UpdateRoutineInput {
 
 input CreateExerciseInput {
   token: String!
-  nameEx: String!
+  name: String!
   typeEx: String!
   muscleEx: String!
   seriesEx: String!
@@ -185,11 +185,11 @@ input CreateExerciseInput {
 
 input DeleteExerciseInput {
   token: String!
-  nameEx: String!
+  name: String!
 }
 
 input UpdateExerciseInput {
   token: String!
-  nameEx: String
+  name: String
   seriesEx: String
 }
