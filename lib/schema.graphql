@@ -19,6 +19,13 @@ type Routine {
   exercises: String
 }
 
+type Folder {
+  id: Int
+  token: String!
+  name: String!
+  content: String
+}
+
 type Exercise {
   id: Int
   token: String!
@@ -27,7 +34,6 @@ type Exercise {
   muscleEx: String!
   seriesEx: String!
 }
-
 type Query {
   "Obtener todos los usuarios"
   getUsers: [User]
@@ -43,6 +49,12 @@ type Query {
 
   "Obtener ejercicios por token de usuario"
   getExercisesByToken(token: String!): [Exercise]
+
+  "Obtener carpetas por token de usuario"
+  getFoldersByToken(token: String!): [Folder]
+
+  "Obtener carpeta por id"
+  getFolderById(id: Int!): Folder
 }
 
 type CreateUserOutput {
@@ -97,6 +109,19 @@ type UpdateExerciseOutput {
   success: Boolean
 }
 
+type CreateFolderOutput {
+  errors: String
+  success: Boolean
+}
+type DeleteFolderOutput {
+  errors: String
+  success: Boolean
+}
+type UpdateFolderOutput {
+  errors: String
+  success: Boolean
+}
+
 type Mutation {
   "Crea un usuario"
   createUser(input: UserInput!): CreateUserOutput
@@ -122,11 +147,20 @@ type Mutation {
   "Crear un ejercicio"
   createExercise(input: CreateExerciseInput!): CreateExerciseOutput
 
-  "Eliminar una ejercicio"
+  "Eliminar un ejercicio"
   deleteExercise(input: DeleteExerciseInput!): DeleteExerciseOutput
 
-  "Actualizar una ejercicio"
+  "Actualizar un ejercicio"
   updateExercise(input: UpdateExerciseInput!): UpdateExerciseOutput
+
+  "Crear una carpeta"
+  createFolder(input: CreateFolderInput!): CreateFolderOutput
+
+  "Eliminar una carpeta"
+  deleteFolder(input: DeleteFolderInput!): DeleteFolderOutput
+
+  "Actualizar una carpeta"
+  updateFolder(input: UpdateFolderInput!): UpdateFolderOutput
 }
 
 input UserInput {
@@ -192,4 +226,21 @@ input UpdateExerciseInput {
   token: String!
   name: String
   seriesEx: String
+}
+
+input CreateFolderInput {
+  token: String!
+  name: String!
+  content: String
+}
+
+input DeleteFolderInput {
+  id: Int!
+  token: String!
+}
+
+input UpdateFolderInput {
+  id: Int!
+  name: String
+  content: String
 }
