@@ -77,6 +77,6 @@ app.get('/cookie' ,(req,res) => {
 
 
 app.listen(port,() => {
-    ('Corriendo puerto en puerto ' + port)
+    console.log('Corriendo puerto en puerto ' + port)
 })
 
