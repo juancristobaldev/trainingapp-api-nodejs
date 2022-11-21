@@ -67,11 +67,9 @@ const port = process.env.PORT;
 
 app.get( '/', (req,res) => {
     res.send('Api funcionando')
-    (req.session.token)
 })
 
 app.get('/cookie' ,(req,res) => {
-    req.session.token = 81
     res.send('done')
 })
 

@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model exercises {
+  id       Int    @id @unique @default(autoincrement())
+  token    String
+  name     String
+  typeEx   String
+  muscleEx String
+  seriesEx String @db.Text
+}
+
+model routines {
+  id         Int     @id @unique @default(autoincrement())
+  token      String  @db.VarChar(255)
+  name       String? @db.VarChar(255)
+  dones      Int
+  timeRecord String  @db.VarChar(255)
+  exercises  String  @db.Text
+}
+
+model folders {
+  id      Int     @id @unique @default(autoincrement())
+  token   String  @db.VarChar(255)
+  name    String  @db.VarChar(50)
+  content String? @db.Text
+}
+
+model users {
+  id            Int     @id @unique @default(autoincrement())
+  user          String  @unique @db.VarChar(30)
+  first_name    String  @db.VarChar(50)
+  last_name     String  @db.VarChar(50)
+  email         String  @unique @db.VarChar(255)
+  date          String  @db.VarChar(20)
+  pass          String  @db.VarChar(20)
+  token         String  @unique @db.VarChar(255)
+  last_workouts String? @db.Text
+}
