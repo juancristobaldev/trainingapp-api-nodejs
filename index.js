@@ -66,7 +66,7 @@ const port = process.env.PORT;
 // routes
 
 app.get( '/', (req,res) => {
-    res.send('Api funcionando')
+    res.send('Api in Vercel')
 })
 
 app.get('/cookie' ,(req,res) => {
