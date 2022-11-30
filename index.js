@@ -8,39 +8,17 @@ const {readFileSync} = require('fs')
 const {join} = require('path')
 
 const express = require('express'),
-app = express()
+app = express();
 
-const cors = require('cors'),
-bodyparser = require('body-parser'),
-jwt = require('jsonwebtoken'),
-mysql = require('mysql'),
-session = require('express-session');
-
-const cookieParser = require('cookie-parser')
+const cors = require('cors');
 
 //env
 
 require('dotenv').config({path:'./.env'})
 
-//middlewares
-app.use(cookieParser())
 
-app.use(bodyparser.urlencoded({extended: false}));
-app.use(bodyparser.json());
+
 app.use(cors());
-
-app.use(session({
-    secret: 'mysecretkey',
-    resave:true,
-    saveUninitialized:true,
-    cookie: 
-    { 
-        path: '/',
-        httpOnly: true,
-        secure: false,
-        maxAge: 7200000,
-    }
-}));
 
 const resolvers = require('./lib/resolvers')
 
@@ -56,7 +34,6 @@ app.use('/graphql', graphqlHTTP({
     schema,
     rootValue:resolvers,
     graphiql:true,
-
 }))
 
 // port
@@ -66,15 +43,11 @@ const port = process.env.PORT;
 // routes
 
 app.get( '/', (req,res) => {
-    res.send('Api in Vercel')
+    console.log(req.headers.host)
+    res.send('Welcome to my Api in Vercel')
 })
 
-app.get('/cookie' ,(req,res) => {
-    res.send('done')
+// server
+app.listen( port, () => {
+    console.log(`Server running at: ${port}`)
 })
-
-
-app.listen(port,() => {
-    console.log('Corriendo puerto en puerto ' + port)
-})
-

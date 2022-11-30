@@ -39,19 +39,19 @@ type Query {
   getUsers: [User]
 
   "Obtener usuario atraves de token"
-  getUser(token: String!): User
+  getUser: User
 
   "Obtener rutinas por token de usuario"
-  getRoutinesByToken(token: String!): [Routine]
+  getRoutines: [Routine]
 
   "Obtener rutina por id de rutina"
   getRoutineById(id: Int!): [Routine]
 
   "Obtener ejercicios por token de usuario"
-  getExercisesByToken(token: String!): [Exercise]
+  getExercises: [Exercise]
 
   "Obtener carpetas por token de usuario"
-  getFoldersByToken(token: String!): [Folder]
+  getFolders: [Folder]
 
   "Obtener carpeta por id"
   getFolderById(id: Int!): Folder
@@ -189,7 +189,6 @@ input UserSignInInput {
 }
 
 input CreateRoutineInput {
-  token: String!
   name: String!
   dones: Int
   timeRecord: String
@@ -210,7 +209,6 @@ input UpdateRoutineInput {
 }
 
 input CreateExerciseInput {
-  token: String!
   name: String!
   typeEx: String!
   muscleEx: String!
@@ -228,14 +226,12 @@ input UpdateExerciseInput {
 }
 
 input CreateFolderInput {
-  token: String!
   name: String!
   content: String
 }
 
 input DeleteFolderInput {
   id: Int!
-  token: String!
 }
 
 input UpdateFolderInput {
