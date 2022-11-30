@@ -196,7 +196,6 @@ input CreateRoutineInput {
 }
 
 input DeleteRoutineInput {
-  token: String!
   id: Int!
 }
 
