@@ -6,10 +6,7 @@
             "use":"@vercel/node"
         }
     ],
-    "routes":[
-        {
-            "src":"/(.*)",
-            "dest":"/graphql"
-        }
-    ]
+    "rewrites":[{
+        "source": "/(.*)", "destination": "/api"
+    }]
 }
