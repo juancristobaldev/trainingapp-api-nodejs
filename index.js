@@ -1,5 +1,5 @@
 //packages
-/*
+
 const {buildSchema} = require('graphql')
 const {graphqlHTTP} = require('express-graphql')
 
@@ -50,37 +50,3 @@ app.get( '/', (req,res) => {
 app.listen( port, () => {
     console.log(`Server running at: ${port}`)
 })
-*/
-const app = express();
-
-app.use(cors());
-app.use(express.json());
-
-const httpServer = http.createServer(app);
-
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => "world",
-  },
-};
-
-const startApolloServer = async(app, httpServer) => {
-    const server = new ApolloServer({
-      typeDefs,
-      resolvers,
-      plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-    });
-  
-    await server.start();
-    server.applyMiddleware({ app });
-}
-
-startApolloServer(app, httpServer);
-
-export default httpServer;
