@@ -47,6 +47,6 @@ app.get( '/', (req,res) => {
 })
 
 // server
-app.listen( port, (req) => {
+app.listen( port, () => {
     console.log(`🚀 Server running at: ${port}`)
 })
