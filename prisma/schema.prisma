@@ -8,7 +8,7 @@ generator client {
 
 datasource db {
   provider             = "mysql"
-  url                  = env("DATABASE_URL")
+  url                  = "mysql://p5f9z8aavkesrm73qk37:pscale_pw_UrbIMBHNPljMVAohGAY2dR2gFn5jbJPDKX4wJRjPUZF@us-east.connect.psdb.cloud/prisma-planetscale?sslaccept=strict&sslcert=/etc/ssl/cert.pem"
   referentialIntegrity = "prisma"
 }
 
