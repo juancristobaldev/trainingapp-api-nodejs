@@ -43,10 +43,10 @@ const port = process.env.PORT;
 
 app.get( '/', (req,res) => {
     console.log(req.headers.host)
-    res.send('Welcome to my Api in Vercel 🚀 ❤')
+    res.send('Welcome to my Api in Vercel 🚀 ')
 })
 
 // server
-app.listen( port, () => {
+app.listen( port, (req) => {
     console.log(`🚀 Server running at: ${port}`)
 })
