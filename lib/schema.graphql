@@ -4,7 +4,7 @@ type User {
   first_name: String!
   last_name: String!
   email: String
-  date: String!
+  date: String
   pass: String!
   token: String
   last_workouts: String
@@ -40,6 +40,9 @@ type Query {
 
   "Obtener usuario atraves de token"
   getUser: User
+
+  "Obtener usuario atraves de email"
+  getUserByEmail(email: String!): User
 
   "Obtener rutinas por token de usuario"
   getRoutines: [Routine]
@@ -161,9 +164,22 @@ type Mutation {
 
   "Actualizar una carpeta"
   updateFolder(input: UpdateFolderInput!): UpdateFolderOutput
+
+  "Iniciar sesion atraves de una RRSS"
+  userSignInRRSS(input: UserSignInRRSSInput!): SignInUserOutput
 }
 
 input UserInput {
+  user: String!
+  first_name: String!
+  last_name: String!
+  email: String!
+  date: String
+  pass: String!
+  last_workouts: String
+}
+
+input UserSignInRRSSInput {
   user: String!
   first_name: String!
   last_name: String!
