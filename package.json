@@ -4,9 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./build/index.js",
-    "build": "tsc -p .",
-    "dev": "nodemon ./lib/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

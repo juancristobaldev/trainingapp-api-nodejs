@@ -81,6 +81,13 @@ type SignInUserOutput {
   token: String
   user: String
 }
+type SignInUserOutputRRSS {
+  errors: String
+  success: Boolean
+  token: String
+  user: String
+  register: Boolean
+}
 
 type CreateRoutineOutput {
   errors: String
@@ -166,7 +173,7 @@ type Mutation {
   updateFolder(input: UpdateFolderInput!): UpdateFolderOutput
 
   "Iniciar sesion atraves de una RRSS"
-  userSignInRRSS(input: UserSignInRRSSInput!): SignInUserOutput
+  userSignInRRSS(input: UserSignInRRSSInput!): SignInUserOutputRRSS
 }
 
 input UserInput {

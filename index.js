@@ -1,10 +1,10 @@
 //packages
 
-import express from 'express'
-import { buildSchema } from 'graphql'
-import { graphqlHTTP } from 'express-graphql'
-import { readFileSync } from 'fs'
-import { join } from 'path'
+const express = require('express')
+const { buildSchema } = require('graphql')
+const { graphqlHTTP } = require('express-graphql') 
+const { readFileSync } = require('fs')
+const { join } = require('path')
 
 
 
@@ -19,11 +19,11 @@ require('dotenv').config({path:'./.env'})
 
 app.use(cors());
 
-const resolvers = require('./resolvers');
+const resolvers = require('./lib/resolvers');
 
 const schema = buildSchema(
     readFileSync(
-        join(__dirname, 'schema.graphql'),
+        join(__dirname,'/lib/', 'schema.graphql'),
         'utf-8'
     )
 )
