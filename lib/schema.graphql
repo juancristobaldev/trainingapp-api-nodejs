@@ -1,11 +1,10 @@
 type User {
   id: Int
-  user: String!
   first_name: String!
   last_name: String!
   email: String
   date: String
-  pass: String!
+  password: String!
   token: String
   last_workouts: String
 }
@@ -177,22 +176,20 @@ type Mutation {
 }
 
 input UserInput {
-  user: String!
   first_name: String!
   last_name: String!
   email: String!
   date: String
-  pass: String!
+  password: String!
   last_workouts: String
 }
 
 input UserSignInRRSSInput {
-  user: String!
   first_name: String!
   last_name: String!
   email: String!
   date: String
-  pass: String!
+  password: String!
   last_workouts: String
 }
 
@@ -201,14 +198,13 @@ input UserDeleteInput {
 }
 input UserUpdateInput {
   id: Int!
-  user: String
   email: String
-  pass: String
+  password: String
   last_workouts: String
 }
 input UserSignInInput {
-  user: String
-  pass: String
+  email: String!
+  password: String!
 }
 
 input CreateRoutineInput {
