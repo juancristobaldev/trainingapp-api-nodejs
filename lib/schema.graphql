@@ -62,6 +62,7 @@ type Query {
 type CreateUserOutput {
   errors: String
   success: Boolean
+  token: String
 }
 
 type DeleteUserOutput {
