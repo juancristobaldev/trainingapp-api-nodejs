@@ -5,7 +5,7 @@ type User {
   email: String
   date: String
   password: String!
-  image: String
+  photo: String
   token: String
   last_workouts: String
 }
@@ -183,7 +183,7 @@ input UserInput {
   email: String!
   date: String
   password: String!
-  image: String
+  photo: String
   last_workouts: String
 }
 
@@ -193,6 +193,7 @@ input UserSignInRRSSInput {
   email: String!
   date: String
   password: String!
+  photo: String
   last_workouts: String
 }
 
