@@ -187,7 +187,7 @@ input UserInput {
   last_workouts: String
 }
 
-type UserSignInRRSSInput {
+input UserSignInRRSSInput {
   first_name: String!
   last_name: String!
   email: String!
