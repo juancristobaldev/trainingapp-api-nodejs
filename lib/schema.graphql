@@ -174,10 +174,20 @@ type Mutation {
   updateFolder(input: UpdateFolderInput!): UpdateFolderOutput
 
   "Iniciar sesion atraves de una RRSS"
-  userSignInRRSS(input: UserInput!): SignInUserOutputRRSS
+  userSignInRRSS(input: UserSignInRRSSInput!): SignInUserOutputRRSS
 }
 
 input UserInput {
+  first_name: String!
+  last_name: String!
+  email: String!
+  date: String
+  password: String!
+  image: String
+  last_workouts: String
+}
+
+type UserSignInRRSSInput {
   first_name: String!
   last_name: String!
   email: String!
