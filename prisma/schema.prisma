@@ -44,10 +44,10 @@ model users {
   last_name     String      @db.VarChar(50)
   email         String      @unique @db.VarChar(255)
   date          String?     @db.VarChar(20)
-  profile_image String?     @db.Text
   password      String      @db.VarChar(255)
   token         String      @unique @db.VarChar(255)
   last_workouts String?     @db.Text
+  profile_image String?     @db.Text
   exercises     exercises[]
   routines      routines[]
   folders       folders[]
