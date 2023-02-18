@@ -15,25 +15,26 @@ model exercises {
   typeEx   String
   muscleEx String
   seriesEx String @db.Text
-  userId   Int?
+  userId   Int
   user     users? @relation(fields: [userId], references: [id])
 }
 
 model routines {
-  id         Int     @id @unique @default(autoincrement())
-  name       String? @db.VarChar(255)
+  id         Int      @id @unique @default(autoincrement())
+  name       String?  @db.VarChar(255)
   dones      Int
-  timeRecord String  @db.VarChar(255)
-  exercises  String  @db.Text
-  userId     Int?
-  user       users?  @relation(fields: [userId], references: [id])
+  timeRecord String   @db.VarChar(255)
+  exercises  String   @db.Text
+  userId     Int
+  user       users?   @relation(fields: [userId], references: [id])
+  ranges     ranges[]
 }
 
 model folders {
   id      Int     @id @unique @default(autoincrement())
   name    String  @db.VarChar(50)
   content String? @db.Text
-  userId  Int?
+  userId  Int
   user    users?  @relation(fields: [userId], references: [id])
 }
 
@@ -43,11 +44,37 @@ model users {
   last_name     String      @db.VarChar(50)
   email         String      @unique @db.VarChar(255)
   date          String?     @db.VarChar(20)
-  image         String?     @db.Text
+  photo         String?     @db.Text
   password      String      @db.VarChar(255)
   token         String      @unique @db.VarChar(255)
   last_workouts String?     @db.Text
   exercises     exercises[]
   routines      routines[]
   folders       folders[]
+  plans         plans[]
+}
+
+model plans {
+  id      Int    @id @unique @default(autoincrement())
+  name    String @db.VarChar(30)
+  autorId Int
+  users   users? @relation(fields: [autorId], references: [id])
+  days    days[]
+}
+
+model days {
+  id         Int      @id @unique @default(autoincrement())
+  identifier Int
+  plans      plans?   @relation(fields: [plansId], references: [id])
+  plansId    Int?
+  ranges     ranges[]
+}
+
+model ranges {
+  id        Int        @id @unique @default(autoincrement())
+  dateStart String     @db.VarChar(30)
+  dateEnd   String     @db.VarChar(30)
+  days      days?      @relation(fields: [daysId], references: [id])
+  daysId    Int?
+  routines  routines[]
 }
