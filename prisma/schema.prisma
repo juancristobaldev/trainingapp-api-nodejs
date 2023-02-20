@@ -9,6 +9,30 @@ datasource db {
   relationMode = "prisma"
 }
 
+model users {
+  id            Int         @id @unique @default(autoincrement())
+  first_name    String      @db.VarChar(50)
+  last_name     String      @db.VarChar(50)
+  email         String      @unique @db.VarChar(255)
+  date          String?     @db.VarChar(20)
+  password      String      @db.VarChar(255)
+  token         String      @unique @db.VarChar(255)
+  last_workouts String?     @db.Text
+  profile_image String?     @db.Text
+  exercises     exercises[]
+  routines      routines[]
+  folders       folders[]
+  plans         plans[]
+  profile       profile?
+}
+
+model profile {
+  id     Int    @id @unique @default(autoincrement())
+  user   users  @relation(fields: [userId], references: [id])
+  userId Int    @unique
+  photo  String @db.VarChar(255)
+}
+
 model exercises {
   id       Int        @id @unique @default(autoincrement())
   name     String
@@ -38,22 +62,6 @@ model folders {
   routines routines[]
   userId   Int
   user     users?     @relation(fields: [userId], references: [id])
-}
-
-model users {
-  id            Int         @id @unique @default(autoincrement())
-  first_name    String      @db.VarChar(50)
-  last_name     String      @db.VarChar(50)
-  email         String      @unique @db.VarChar(255)
-  date          String?     @db.VarChar(20)
-  password      String      @db.VarChar(255)
-  token         String      @unique @db.VarChar(255)
-  last_workouts String?     @db.Text
-  profile_image String?     @db.Text
-  exercises     exercises[]
-  routines      routines[]
-  folders       folders[]
-  plans         plans[]
 }
 
 model plans {
