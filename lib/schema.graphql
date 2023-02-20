@@ -5,7 +5,6 @@ type User {
   email: String
   date: String
   password: String!
-  profile_image: String
   token: String!
   last_workouts: String
 }
@@ -16,14 +15,12 @@ type Routine {
   name: String!
   dones: Int
   timeRecord: String
-  exercises: String
 }
 
 type Folder {
   id: Int
   token: String!
   name: String!
-  content: String
 }
 
 type Exercise {
