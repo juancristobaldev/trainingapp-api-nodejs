@@ -18,12 +18,11 @@ model users {
   password      String      @db.VarChar(255)
   token         String      @unique @db.VarChar(255)
   last_workouts String?     @db.Text
-  profile_image String?     @db.Text
+  profile       profile?
   exercises     exercises[]
   routines      routines[]
   folders       folders[]
   plans         plans[]
-  profile       profile?
 }
 
 model profile {
