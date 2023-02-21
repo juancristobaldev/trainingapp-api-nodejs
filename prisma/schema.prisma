@@ -48,15 +48,17 @@ model routines {
   dones      Int
   timeRecord String   @db.VarChar(255)
   userId     Int
+  exercises  String   @db.Text
   user       users?   @relation(fields: [userId], references: [id])
   ranges     ranges[]
 }
 
 model folders {
-  id     Int    @id @unique @default(autoincrement())
-  name   String @db.VarChar(50)
-  userId Int
-  user   users? @relation(fields: [userId], references: [id])
+  id      Int    @id @unique @default(autoincrement())
+  name    String @db.VarChar(50)
+  userId  Int
+  contain String @db.Text
+  user    users? @relation(fields: [userId], references: [id])
 }
 
 model plans {
