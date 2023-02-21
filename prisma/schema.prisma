@@ -33,34 +33,30 @@ model profile {
 }
 
 model exercises {
-  id       Int        @id @unique @default(autoincrement())
+  id       Int    @id @unique @default(autoincrement())
   name     String
   typeEx   String
   muscleEx String
-  seriesEx String     @db.Text
+  seriesEx String @db.Text
   userId   Int
-  user     users?     @relation(fields: [userId], references: [id])
-  routines routines[]
+  user     users? @relation(fields: [userId], references: [id])
 }
 
 model routines {
-  id         Int         @id @unique @default(autoincrement())
-  name       String?     @db.VarChar(255)
+  id         Int      @id @unique @default(autoincrement())
+  name       String?  @db.VarChar(255)
   dones      Int
-  timeRecord String      @db.VarChar(255)
+  timeRecord String   @db.VarChar(255)
   userId     Int
-  user       users?      @relation(fields: [userId], references: [id])
+  user       users?   @relation(fields: [userId], references: [id])
   ranges     ranges[]
-  folders    folders[]
-  exercises  exercises[]
 }
 
 model folders {
-  id       Int        @id @unique @default(autoincrement())
-  name     String     @db.VarChar(50)
-  routines routines[]
-  userId   Int
-  user     users?     @relation(fields: [userId], references: [id])
+  id     Int    @id @unique @default(autoincrement())
+  name   String @db.VarChar(50)
+  userId Int
+  user   users? @relation(fields: [userId], references: [id])
 }
 
 model plans {
