@@ -31,6 +31,7 @@ type Exercise {
   muscleEx: String!
   seriesEx: String!
 }
+
 type Query {
   "Obtener todos los usuarios"
   getUsers: [User]
