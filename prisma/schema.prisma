@@ -27,7 +27,7 @@ model users {
 
 model profile {
   id     Int    @id @unique @default(autoincrement())
-  user   users  @relation(fields: [userId], references: [id])
+  user   users? @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int    @unique
   photo  String @db.VarChar(255)
 }
@@ -39,7 +39,7 @@ model exercises {
   muscleEx String
   seriesEx String     @db.Text
   userId   Int
-  user     users?     @relation(fields: [userId], references: [id])
+  user     users?     @relation(fields: [userId], references: [id], onDelete: Cascade)
   routines routines[]
 }
 
@@ -49,7 +49,7 @@ model routines {
   dones      Int
   timeRecord String      @db.VarChar(255)
   userId     Int
-  user       users?      @relation(fields: [userId], references: [id])
+  user       users?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   exercises  exercises[]
   ranges     ranges[]
   folders    folders[]
@@ -59,7 +59,7 @@ model folders {
   id       Int        @id @unique @default(autoincrement())
   name     String     @db.VarChar(50)
   userId   Int
-  user     users?     @relation(fields: [userId], references: [id])
+  user     users?     @relation(fields: [userId], references: [id], onDelete: Cascade)
   routines routines[]
 }
 
@@ -67,14 +67,14 @@ model plans {
   id      Int    @id @unique @default(autoincrement())
   name    String @db.VarChar(30)
   autorId Int
-  users   users? @relation(fields: [autorId], references: [id])
+  users   users? @relation(fields: [autorId], references: [id], onDelete: Cascade)
   days    days[]
 }
 
 model days {
   id         Int      @id @unique @default(autoincrement())
   identifier Int
-  plans      plans?   @relation(fields: [plansId], references: [id])
+  plans      plans?   @relation(fields: [plansId], references: [id], onDelete: Cascade)
   plansId    Int?
   ranges     ranges[]
 }
@@ -83,7 +83,7 @@ model ranges {
   id        Int        @id @unique @default(autoincrement())
   dateStart String     @db.VarChar(30)
   dateEnd   String     @db.VarChar(30)
-  days      days?      @relation(fields: [daysId], references: [id])
+  days      days?      @relation(fields: [daysId], references: [id], onDelete: Cascade)
   daysId    Int?
   routines  routines[]
 }

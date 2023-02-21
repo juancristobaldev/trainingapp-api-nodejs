@@ -2,6 +2,7 @@ type User {
   id: Int
   first_name: String!
   last_name: String!
+  profile_image: String
   email: String
   date: String
   password: String!
@@ -196,7 +197,7 @@ input UserSignInRRSSInput {
 }
 
 input UserDeleteInput {
-  token: String!
+  id: Int
 }
 input UserUpdateInput {
   id: Int!
