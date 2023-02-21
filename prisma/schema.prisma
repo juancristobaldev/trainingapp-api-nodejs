@@ -57,7 +57,7 @@ model folders {
   id      Int    @id @unique @default(autoincrement())
   name    String @db.VarChar(50)
   userId  Int
-  contain String @db.Text
+  content String @db.Text
   user    users? @relation(fields: [userId], references: [id])
 }
 

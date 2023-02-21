@@ -212,7 +212,6 @@ input CreateRoutineInput {
   name: String!
   dones: Int
   timeRecord: String
-  exercises: String
 }
 
 input DeleteRoutineInput {
@@ -224,7 +223,6 @@ input UpdateRoutineInput {
   name: String
   dones: Int
   timeRecord: String
-  exercises: String
 }
 
 input CreateExerciseInput {
@@ -246,7 +244,6 @@ input UpdateExerciseInput {
 
 input CreateFolderInput {
   name: String!
-  content: String
 }
 
 input DeleteFolderInput {
@@ -256,5 +253,4 @@ input DeleteFolderInput {
 input UpdateFolderInput {
   id: Int!
   name: String
-  content: String
 }
