@@ -2,7 +2,6 @@ type User {
   id: Int
   first_name: String!
   last_name: String!
-  profile_image: String
   email: String
   date: String
   password: String!
@@ -33,12 +32,33 @@ type Exercise {
   seriesEx: String!
 }
 
+type Profile {
+  id: Int!
+  userId: Int
+  photo: String
+}
+
+type getUserOutput {
+  id: Int
+  first_name: String!
+  last_name: String!
+  email: String
+  date: String
+  password: String!
+  token: String!
+  last_workouts: String
+  profile: Profile
+  exercises: [Exercise]
+  routines: [Routine]
+  folders: [Folder]
+}
+
 type Query {
   "Obtener todos los usuarios"
   getUsers: [User]
 
   "Obtener usuario atraves de token"
-  getUser: User
+  getUser: getUserOutput
 
   "Obtener usuario atraves de email"
   getUserByEmail(email: String!): User
