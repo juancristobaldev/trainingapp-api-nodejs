@@ -26,10 +26,10 @@ model users {
 }
 
 model profile {
-  id     Int    @id @unique @default(autoincrement())
-  user   users? @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int    @unique
-  photo  String @db.VarChar(255)
+  id     Int     @id @unique @default(autoincrement())
+  user   users?  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int     @unique
+  photo  String? @db.VarChar(255)
 }
 
 model exercises {
