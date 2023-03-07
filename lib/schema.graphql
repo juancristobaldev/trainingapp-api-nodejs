@@ -27,9 +27,9 @@ type Exercise {
   id: Int
   token: String!
   name: String!
-  typeEx: String!
-  muscleEx: String!
-  seriesEx: String!
+  type: String!
+  muscle: String!
+  series: String!
 }
 
 type Profile {
@@ -249,9 +249,9 @@ input UpdateRoutineInput {
 
 input CreateExerciseInput {
   name: String!
-  typeEx: String!
-  muscleEx: String!
-  seriesEx: String!
+  type: String!
+  muscle: String!
+  series: String!
 }
 
 input DeleteExerciseInput {
@@ -261,7 +261,7 @@ input DeleteExerciseInput {
 input UpdateExerciseInput {
   id: Int!
   name: String
-  seriesEx: String
+  series: String
 }
 
 input CreateFolderInput {
