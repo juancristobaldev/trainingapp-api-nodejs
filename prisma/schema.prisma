@@ -35,9 +35,9 @@ model profile {
 model exercises {
   id       Int        @id @unique @default(autoincrement())
   name     String
-  typeEx   String
-  muscleEx String
-  seriesEx String     @db.Text
+  type     String
+  muscle   String
+  series   String     @db.Text
   userId   Int
   user     users?     @relation(fields: [userId], references: [id], onDelete: Cascade)
   routines routines[]
