@@ -13,6 +13,7 @@ type Routine {
   id: Int
   token: String!
   name: String!
+  flow: String!
   dones: Int
   timeRecord: String
 }
@@ -233,6 +234,7 @@ input UserSignInInput {
 input CreateRoutineInput {
   name: String!
   dones: Int
+  flow: String
   timeRecord: String
 }
 

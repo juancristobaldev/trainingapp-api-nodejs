@@ -41,6 +41,15 @@ model exercises {
   userId   Int
   user     users?     @relation(fields: [userId], references: [id], onDelete: Cascade)
   routines routines[]
+  cycles   cycles[]
+  cyclesId Int?
+}
+
+model cycles {
+  id         Int         @id @unique @default(autoincrement())
+  exercises  exercises[]
+  routines   routines?   @relation(fields: [routinesId], references: [id])
+  routinesId Int?
 }
 
 model routines {
@@ -50,6 +59,7 @@ model routines {
   timeRecord String      @db.VarChar(255)
   userId     Int
   user       users?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cycles     cycles[]
   exercises  exercises[]
   ranges     ranges[]
   folders    folders[]
