@@ -7,51 +7,54 @@ type User {
   password: String!
   token: String!
   last_workouts: String
+  profile: Profile
+  exercises: [Exercise]
+  routines: [Routine]
+  folders: [Folder]
 }
 
 type Routine {
   id: Int
   token: String!
+  author: User
   name: String!
   flow: String!
   dones: Int
   timeRecord: String
+  exercises: [Exercise!]
+  cycles: [Cycle]
 }
 
 type Folder {
   id: Int
   token: String!
+  author: User
   name: String!
 }
 
 type Exercise {
   id: Int
   token: String!
+  author: User
   name: String!
   type: String!
   muscle: String!
   series: String!
+  routines: [Routine!]
+}
+
+type Cycle {
+  id: Int
+  cycles: Int
+  routine: Routine
+  exercises: [Exercise]
 }
 
 type Profile {
   id: Int!
   userId: Int
+  author: User
   photo: String
-}
-
-type getUserOutput {
-  id: Int
-  first_name: String!
-  last_name: String!
-  email: String
-  date: String
-  password: String!
-  token: String!
-  last_workouts: String
-  profile: Profile
-  exercises: [Exercise]
-  routines: [Routine]
-  folders: [Folder]
 }
 
 type Query {
@@ -59,7 +62,7 @@ type Query {
   getUsers: [User]
 
   "Obtener usuario atraves de token"
-  getUser: getUserOutput
+  getUser: User
 
   "Obtener usuario atraves de email"
   getUserByEmail(email: String!): User
@@ -68,7 +71,7 @@ type Query {
   getRoutines: [Routine]
 
   "Obtener rutina por id de rutina"
-  getRoutineById(id: Int!): [Routine]
+  getRoutineById(id: Int!): Routine
 
   "Obtener ejercicios por token de usuario"
   getExercises: [Exercise]
@@ -113,6 +116,7 @@ type SignInUserOutputRRSS {
 type CreateRoutineOutput {
   errors: String
   success: Boolean
+  id: Int
 }
 
 type DeleteRoutineOutput {

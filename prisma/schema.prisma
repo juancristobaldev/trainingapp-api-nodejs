@@ -48,7 +48,8 @@ model exercises {
 model cycles {
   id         Int         @id @unique @default(autoincrement())
   exercises  exercises[]
-  routines   routines?   @relation(fields: [routinesId], references: [id])
+  routines   routines?   @relation(fields: [routinesId], references: [id], onDelete: Cascade)
+  cycles     Int
   routinesId Int?
 }
 

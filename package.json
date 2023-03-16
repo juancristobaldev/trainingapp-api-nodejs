@@ -27,6 +27,7 @@
     "graphql-tools": "^8.3.12",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
+    "neo4j-graphql-js": "^2.19.4",
     "nodemon": "^2.0.19",
     "prisma": "^4.6.1",
     "standard": "^17.0.0",
