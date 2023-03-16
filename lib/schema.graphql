@@ -16,7 +16,7 @@ type User {
 type Routine {
   id: Int
   token: String!
-  author: User
+  user: User
   name: String!
   flow: String!
   dones: Int
@@ -28,14 +28,14 @@ type Routine {
 type Folder {
   id: Int
   token: String!
-  author: User
+  user: User
   name: String!
 }
 
 type Exercise {
   id: Int
   token: String!
-  author: User
+  user: User
   name: String!
   type: String!
   muscle: String!
@@ -53,7 +53,7 @@ type Cycle {
 type Profile {
   id: Int!
   userId: Int
-  author: User
+  user: User
   photo: String
 }
 
