@@ -59,6 +59,7 @@ model routines {
   dones      Int
   timeRecord String      @db.VarChar(255)
   userId     Int
+  flow       String      @db.Text
   user       users?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   cycles     cycles[]
   exercises  exercises[]
