@@ -38,6 +38,7 @@ type Exercise {
   user: User
   name: String!
   type: String!
+  rest: String!
   muscle: String!
   series: String!
   routines: [Routine!]
@@ -116,32 +117,37 @@ type SignInUserOutputRRSS {
 type CreateRoutineOutput {
   errors: String
   success: Boolean
-  id: Int
+  routine: Routine
 }
 
 type DeleteRoutineOutput {
   errors: String
   success: Boolean
+  user: User
 }
 
 type UpdateRoutineOutput {
   errors: String
   success: Boolean
+  user: User
 }
 
 type CreateExerciseOutput {
   errors: String
   success: Boolean
+  exercise: Exercise
 }
 
 type DeleteExerciseOutput {
   errors: String
   success: Boolean
+  exercises: String
 }
 
 type UpdateExerciseOutput {
   errors: String
   success: Boolean
+  user: User
 }
 
 type CreateFolderOutput {
@@ -261,7 +267,7 @@ input CreateExerciseInput {
 }
 
 input DeleteExerciseInput {
-  id: Int!
+  ids: String!
 }
 
 input UpdateExerciseInput {

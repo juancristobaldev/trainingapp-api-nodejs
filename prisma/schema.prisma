@@ -38,6 +38,7 @@ model exercises {
   type     String     @db.VarChar(50)
   muscle   String     @db.VarChar(50)
   series   String     @db.Text
+  rest     String     @db.VarChar(50)
   userId   Int
   user     users?     @relation(fields: [userId], references: [id], onDelete: Cascade)
   routines routines[]
