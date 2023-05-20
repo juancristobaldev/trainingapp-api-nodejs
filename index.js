@@ -56,7 +56,6 @@ app.get(
     session: true,
   }),
   (req, res) => {
-    console.log(req.user);
 
     res.redirect(`/success?response=${JSON.stringify(req.user)}`);
   }
@@ -70,6 +69,7 @@ app.get(
     session: true,
   }),
   (req, res) => {
+
     res.redirect(`/success?response=${JSON.stringify(req.user)}`);
   }
 );
