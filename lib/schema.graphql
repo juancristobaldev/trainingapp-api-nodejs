@@ -2,11 +2,11 @@ type User {
   id: Int
   first_name: String!
   last_name: String!
-  email: String
   date: String
+  gender: String
+  email: String
   password: String!
   token: String!
-  last_workouts: String
   profile: Profile
   exercises: [Exercise]
   routines: [Routine]
@@ -106,12 +106,11 @@ type SignInUserOutput {
   token: String
   user: String
 }
-type SignInUserOutputRRSS {
+
+type SignUserOutputRRSS {
   errors: String
   success: Boolean
-  token: String
-  user: String
-  register: Boolean
+  user: User
 }
 
 type CreateRoutineOutput {
@@ -147,7 +146,7 @@ type DeleteExerciseOutput {
 type UpdateExerciseOutput {
   errors: String
   success: Boolean
-  user: User
+  exercise: Exercise
 }
 
 type CreateFolderOutput {
@@ -204,27 +203,36 @@ type Mutation {
   updateFolder(input: UpdateFolderInput!): UpdateFolderOutput
 
   "Iniciar sesion atraves de una RRSS"
-  userSignInRRSS(input: UserSignInRRSSInput!): SignInUserOutputRRSS
+  userSignInRRSS(input: UserSignInRRSSInput!): SignUserOutputRRSS
+
+  "Registrarte atraves de Google"
+  userSignUpGoogle(input: UserSignUpRRSSInput!): SignUserOutputRRSS
+
+  "Registrarte atraves de Facebook"
+  userSignUpFacebook(input: UserSignUpRRSSInput!): SignUserOutputRRSS
 }
 
 input UserInput {
   first_name: String!
   last_name: String!
   email: String!
+  gender: String
   date: String
   password: String!
   profile_image: String
-  last_workouts: String
 }
 
-input UserSignInRRSSInput {
+input UserSignUpRRSSInput {
   first_name: String!
   last_name: String!
   email: String!
-  date: String
   password: String!
   profile_image: String
-  last_workouts: String
+  token: String
+}
+
+input UserSignInRRSSInput {
+  token: String!
 }
 
 input UserDeleteInput {
@@ -264,6 +272,7 @@ input CreateExerciseInput {
   type: String!
   muscle: String!
   series: String!
+  rest: String!
 }
 
 input DeleteExerciseInput {
@@ -274,6 +283,7 @@ input UpdateExerciseInput {
   id: Int!
   name: String
   series: String
+  rest: String
 }
 
 input CreateFolderInput {
